@@ -1,28 +1,14 @@
-require('dotenv').config();
+import { Sequelize } from 'sequelize';
 
-const mysql = require('mysql');
+import dotenv from 'dotenv';
+dotenv.config()
 
-const connection = mysql.createConnection({
-    host: process.env.DB_HOST.split(':')[0],
-    port: process.env.DB_HOST.split(':')[1],
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-}); 
+const [host, port] = process.env.DB_HOST.split(':');
 
-console.log('host: ' + process.env.DB_HOST.split(':')[0]);
-console.log('port: ' + process.env.DB_HOST.split(':')[1]);
-console.log('user: ' + process.env.DB_USER);
-console.log('password: ' + process.env.DB_PASSWORD);
-console.log('database: ' + process.env.DB_NAME);
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host,
+  port,
+  dialect: 'mysql' // or 'mariadb' if you're using MariaDB
+});
 
-
-connection.connect((err) => {
-    if (err) {
-      console.error('Error connecting: ' + err.stack);
-      return;
-    }
-    console.log('Connected as id ' + connection.threadId);
-  });
-  
-module.exports = connection;
+export default sequelize;
