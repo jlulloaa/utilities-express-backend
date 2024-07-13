@@ -28,10 +28,12 @@ dotenv.config();
 
 // Middleware setup:
 // 1) Enable CORS for all routes
-app.use(cors({
+const corsOptions = {
     origin: process.env.FRONTEND_URL, // 'http://your-s3-website-url', // Replace with your actual S3 website URL
-    credentials: true
-}));
+    optionsSuccessStatus: 200,
+    credentials: true,
+};
+app.use(cors(corsOptions));
 
 // 2) Parse requests of content-type - application/json
 app.use(json());
