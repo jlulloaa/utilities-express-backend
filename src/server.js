@@ -30,8 +30,9 @@ dotenv.config();
 // 1) Enable CORS for all routes
 const corsOptions = {
     origin: process.env.FRONTEND_URL, // 'http://your-s3-website-url', // Replace with your actual S3 website URL
-    optionsSuccessStatus: 200,
-    // credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    optionsSuccessStatus: 204,
+    credentials: true,
 };
 app.use(cors(corsOptions));
 
