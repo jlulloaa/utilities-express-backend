@@ -33,7 +33,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
     credentials: true,
 };
-app.use(cors(corsOptions));
+app.use(cors()); //corsOptions));
 
 // 2) Parse requests of content-type - application/json
 app.use(json());
