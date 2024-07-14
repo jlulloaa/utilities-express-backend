@@ -31,9 +31,9 @@ dotenv.config();
 const corsOptions = {
     origin: process.env.FRONTEND_URL, // 'http://your-s3-website-url', // Replace with your actual S3 website URL
     optionsSuccessStatus: 200,
-    credentials: true,
+    // credentials: true,
 };
-app.use(cors()); //corsOptions));
+app.use(cors(corsOptions));
 
 // 2) Parse requests of content-type - application/json
 app.use(json());
