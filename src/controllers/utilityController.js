@@ -15,24 +15,32 @@ const modelMapping = {
 };
 
 export const getRecords = async (req, res) => {
+    const userId = req.user.uid;
+    console.log('UserID: ' + userId);
+    const customer = await Customers.findOne({ where: { firebaseUserId: userId } });
+    if (customer) {
+        res.json(customer);
+        const tableName = req.params.tableName.toLowerCase();
+        console.log('Table: '+tableName);
+        const model = modelMapping[tableName];
+    
+        if (!model) {
+            return res.status(400).send('Invalid table name');
+        }
 
-    const tableName = req.params.tableName.toLowerCase();
-    console.log('Table: '+tableName);
-    const model = modelMapping[tableName];
- 
-    if (!model) {
-        return res.status(400).send('Invalid table name');
+        const filters = req.query; // Capture the query parameters from the request
+
+        try {
+            const records = await model.findAll({ where: filters }); // Apply the filters to the query
+            res.json(records);
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server error');
+        }
+    }  else {
+        res.status(404).send('Customer not found');
     }
-
-    const filters = req.query; // Capture the query parameters from the request
-
-    try {
-        const records = await model.findAll({ where: filters }); // Apply the filters to the query
-        res.json(records);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server error');
-    }
+    
 };
 
 export const createBill = async (req, res) => {

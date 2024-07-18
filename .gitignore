@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 .DS_Store
 .env
+src/auth/utilities-login-auth-firebase-adminsdk-4rkfx-832fcadfc8.json

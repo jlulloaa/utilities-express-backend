@@ -2,6 +2,9 @@ import express, { json, urlencoded } from 'express';
 import cors from 'cors';  // Import cors package
 import dotenv from 'dotenv';
 
+// Add authentication (firebase)
+// import { authenticate } from './auth/firebase.js'; 
+
 // Enable API documentation (Swagger)
 import { serve, setup } from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';

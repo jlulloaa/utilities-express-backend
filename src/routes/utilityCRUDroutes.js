@@ -2,6 +2,9 @@ import { Router } from 'express';
 import { welcome } from '../controllers/welcome.js';
 import * as utilityController from '../controllers/utilityController.js';
 
+// Add authentication (firebase)
+import { authenticate } from '../auth/firebase.js'; 
+
 const utilityRouter = Router();
 
 // Just the welcome message to test the API connection
@@ -24,8 +27,8 @@ const utilityRouter = Router();
  utilityRouter.get('/',welcome);
  
  // Utility routes (Sequelize)
- utilityRouter.get('/:tableName', utilityController.getRecords);
- utilityRouter.post('/:tableName', utilityController.createBill);
+ utilityRouter.get('/:tableName', authenticate, utilityController.getRecords);
+ utilityRouter.post('/:tableName', authenticate, utilityController.createBill);
 
 
 // // Create a new record in a table
